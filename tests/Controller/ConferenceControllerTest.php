@@ -3,6 +3,8 @@
 namespace App\Tests\Controller;
 
 use Symfony\Component\Panther\PantherTestCase;
+use App\Repository\CommentRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
 class ConferenceControllerTest extends PantherTestCase
 {
@@ -22,7 +24,7 @@ class ConferenceControllerTest extends PantherTestCase
         $client->submitForm('Submit', [
             'comment_form[author]' => 'Fabien',
             'comment_form[text]' => 'Some feedback from an automated functional test',
-            'comment_form[email]' => 'me@automat.ed',
+            'comment_form[email]' => $email = 'me@automat.ed',
             'comment_form[photo]' => dirname(__DIR__, 2).'/public/images/under-construction.gif',
         ]);
         $this->assertResponseRedirects();
